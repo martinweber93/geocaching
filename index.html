@@ -1,17 +1,129 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Geoaching</title>
-	<script
-  src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha256-j+XrvkQ4jJ99Hj0pJKPr6k0RCgxDDSTs3PBqLrX2EMc=" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha256-mIfhv/h3MLq3WSiSlduuZO3saRNzzuf1LK8w3z3l3JY=" crossorigin="anonymous" />
-</head>
-<body>
-<div class="container">
-	<h1>Geocach</h1>
-	<h3>die_Mannschaft grüßt</h3>
-	<p>Die Seiter</p>	
-</div>
-</body>
+<html lang="DE/de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
+
+    <title>Quasar App - gc_editor</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@^3.5.2/animate.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/quasar-framework@^0.17.0/dist/umd/quasar.mat.min.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <div id="q-app">
+      <q-layout view="hHh Lpr fff">
+        <q-layout-header>
+          <q-toolbar color="primary">
+            <q-btn flat round dense @click="drawerState = !drawerState" icon="menu"></q-btn>
+
+            <q-toolbar-title>
+              GC Tools
+            </q-toolbar-title>
+          </q-toolbar>
+        </q-layout-header>
+
+        <q-layout-drawer
+          v-model="drawerState"
+          :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
+        >
+          <q-list no-border link inset-delimiter>
+            <!-- <q-list-header>Menü</q-list-header> -->
+            <q-item to="/test" v-ripple>
+              <q-item-side icon="school"></q-item-side>
+              <q-item-main label="Home"></q-item-main>
+            </q-item>
+            <q-item to="/test2" v-ripple>
+              <q-item-side icon="chat"></q-item-side>
+              <q-item-main label="Test"></q-item-main>
+            </q-item>
+          </q-list>
+        </q-layout-drawer>
+
+        <q-page-container>
+          <router-view></router-view>
+        </q-page-container>
+      </q-layout>
+    </div>
+
+
+    <script>
+      window.quasarConfig = {
+        brand: { // this will NOT work on IE 11
+          primary: '#4caf50',
+          secondary: '#795548'
+          // ... or all other brand colors
+        }
+      }
+    </script>
+
+    <script type="text/x-template" id="my-page">
+      <q-page padding>
+
+        <!-- page content; replace this entirely -->
+        <div class="row">
+          <h1>Test</h1>
+        </div>
+
+      </q-page>
+    </script>
+
+    <script type="text/x-template" id="my-page2">
+      <q-page padding>
+
+        <!-- page content; replace this entirely -->
+        <div class="row">
+          <h1>Test 2</h1>
+        </div>
+
+      </q-page>
+    </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@latest/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar-framework@^0.17.0/dist/umd/quasar.mat.umd.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/quasar-framework@^0.17.0/dist/umd/i18n.DE/de.umd.min.js"></script> -->
+
+    <script>
+      // Quasar.i18n.set(Quasar.i18n.DE/de)
+
+      //Pages
+      const myPage = {template: '#my-page'}
+      const myPage2 = {template: '#my-page2'}
+
+      //Routes
+      const routes = [
+        { path: '', redirect: '/test' },
+        { path: '/test', component: myPage },
+        { path: '/test2', component: myPage2 }
+      ]
+
+      const router = new VueRouter({
+        routes
+      })
+
+      new Vue({
+        el: '#q-app',
+        router: router,
+        data: function () {
+          return {
+            version: Quasar.version,
+            drawerState: true
+          }
+        },
+        methods: {
+          launch: function (url) {
+            Quasar.utils.openURL(url)
+          }
+        }
+      })
+    </script>
+  </body>
 </html>
